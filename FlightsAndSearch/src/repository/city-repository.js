@@ -2,7 +2,7 @@
 // it is to interact with the model, we can create the cities , update ,delete etc
 //const city = require("../models/city");  //or
 const { City } = require("../models/index");
-
+const { Op } = require("sequelize");
 class CityRepository {
   async createCity(obj) {
     //or ({name}) it is destructuring object so we can directly use name
@@ -59,8 +59,19 @@ class CityRepository {
       throw { error };
     }
   }
-  async getAll() {
+  async getAll(filter) {
+    //filter can be empty also
     try {
+      if (filter.name) {
+        const city = await City.findAll({
+          where: {
+            name: {
+              [Op.startsWith]: filter.name,
+            },
+          },
+        });
+        return city;
+      }
       const city = await City.findAll();
       return city;
     } catch (error) {
