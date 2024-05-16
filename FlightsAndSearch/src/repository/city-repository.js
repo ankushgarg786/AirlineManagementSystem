@@ -39,7 +39,11 @@ class CityRepository {
           id: cityID,
         },
       });
-      return city;
+
+      //const city = await City.findByPk(cityID);
+      // city.name = data.name;
+      // await city.save();
+      // return city;  // this will sreturn the updated object also
     } catch (error) {
       console.log("Soething went wrong inside city Repo");
       throw { error };
