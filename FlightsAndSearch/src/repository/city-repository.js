@@ -10,6 +10,7 @@ class CityRepository {
       const city = await City.create({
         name: obj.name,
       });
+      return city;
     } catch (error) {
       console.log("Something went wrong inside City repositpry");
       return { error };
@@ -23,6 +24,7 @@ class CityRepository {
           id: cityID,
         },
       });
+      return true;
     } catch (error) {
       console.log("Something went wrong inside City repositpry");
       return { error };
