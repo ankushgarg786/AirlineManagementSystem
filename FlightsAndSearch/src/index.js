@@ -2,8 +2,10 @@ const express = require("express");
 //const { PORT } = require("./config/serverConfig.js");
 const PORT = 3000;
 const bodyParser = require("body-parser");
-
+const db = require("./models/index");
 const ApiRoutes = require("./routes/index");
+//const { City, Airport } = require("./models/index");
+const sequelize = require("sequelize");
 const startAndSetupServer = async () => {
   const app = express();
   app.use(bodyParser.json());
@@ -12,6 +14,9 @@ const startAndSetupServer = async () => {
 
   app.listen(PORT, () => {
     console.log(`Server started at ${PORT}`);
+
+    // db.sequelize.sync({ alter: true }); it has to be run one time
+    //be careful if you do force:true it will erase all the data of all the tables
   });
 };
 
