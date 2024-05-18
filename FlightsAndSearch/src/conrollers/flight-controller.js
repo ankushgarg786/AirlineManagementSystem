@@ -23,7 +23,6 @@ const create = async (req, res) => {
 };
 const getAll = async (req, res) => {
   try {
-    console.log(req.params);
     const flight = await flightService.getAllFlights(req.query);
     return res.status(201).json({
       data: flight,

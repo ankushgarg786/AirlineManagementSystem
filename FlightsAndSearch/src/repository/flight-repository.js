@@ -10,20 +10,23 @@ class FlightRepository {
     if (data.departureAirportId) {
       filter.departureAirportId = departureAirportId;
     }
-    if (data.minPrice && data.maxPrice) {
-      Object.assign(filter, {
-        [Op.and]: [
-          { price: { [Op.gte]: data.minPrice } },
-          { price: { [Op.lte]: data.maxPrice } },
-        ],
-      });
-    }
+    // if (data.minPrice && data.maxPrice) {
+    //   Object.assign(filter, {
+    //     [Op.and]: [
+    //       { price: { [Op.gte]: data.minPrice } },
+    //       { price: { [Op.lte]: data.maxPrice } },
+    //     ],
+    //   });
+    // }
+    let priceFilter = [];
     if (data.minPrice) {
-      Object.assign(filter, { price: { [Op.gte]: data.minPrice } });
+      priceFilter.push({ price: { [Op.gte]: data.minPrice } });
     }
     if (data.maxPrice) {
-      Object.assign(filter, { price: { [Op.lte]: data.maxPrice } });
+      priceFilter.push({ price: { [Op.lte]: data.maxPrice } });
     }
+    Object.assign(filter, { [Op.and]: priceFilter });
+    //console.log(filter);
     return filter;
   }
 

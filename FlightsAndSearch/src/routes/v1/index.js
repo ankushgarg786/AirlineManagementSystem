@@ -1,4 +1,5 @@
 const express = require("express");
+const { flightMiddlewares } = require("../../middlewares/index");
 const router = express.Router();
 
 // routes for city
@@ -18,6 +19,10 @@ router.delete("/airport/:id", airportController.destroy);
 
 //routes for flights
 const flightController = require("../../conrollers/flight-controller");
-router.post("/flights", flightController.create); //flights beacus of conventions try to always write a clean code
+router.post(
+  "/flights",
+  flightMiddlewares.validateCreateFlight,
+  flightController.create
+); //flights beacus of conventions try to always write a clean code
 router.get("/flights", flightController.getAll);
 module.exports = router;
