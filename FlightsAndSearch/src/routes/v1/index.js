@@ -16,4 +16,8 @@ router.get("/airport/:id", airportController.get);
 router.patch("/airport/:id", airportController.update);
 router.delete("/airport/:id", airportController.destroy);
 
+//routes for flights
+const flightController = require("../../conrollers/flight-controller");
+router.post("/flights", flightController.create); //flights beacus of conventions try to always write a clean code
+router.get("/flights", flightController.getAll);
 module.exports = router;
