@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const UserRepository = require("../repository/user-repository");
 
 const { JWT_KEY } = require("../config/serverConfig");
-
+//const JWT_KEY = "auth";
 class UserService {
   constructor() {
     this.userRepository = new UserRepository();
@@ -41,6 +41,23 @@ class UserService {
     }
   }
 
+  async isAuthenticated(token) {
+    try {
+      const response = this.verifyToken(token);
+      console.log(response);
+      if (!response) {
+        throw { error: "Invalid token" };
+      }
+      const user = await this.userRepository.getById(response.id);
+      if (!user) {
+        throw { error: "No user with the corresponding token exists" };
+      }
+      return user.id;
+    } catch (error) {
+      console.log("Something went wrong in auth process");
+      throw error;
+    }
+  }
   createToken(user) {
     try {
       const result = jwt.sign(user, JWT_KEY, { expiresIn: "1d" });
@@ -53,7 +70,10 @@ class UserService {
 
   verifyToken(token) {
     try {
+      console.log(token);
+      //console.log("yes i reach");
       const response = jwt.verify(token, JWT_KEY);
+      console.log(response);
       return response;
     } catch (error) {
       console.log("something went wrong in token validation");
