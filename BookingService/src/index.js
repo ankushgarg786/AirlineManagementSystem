@@ -9,7 +9,7 @@ const db = require("./models/index");
 
 const setupAndStartServer = () => {
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.urlencoded({ extended: "utf-8" }));
 
   app.use("/api", apiRoutes);
   app.listen(PORT, () => {
