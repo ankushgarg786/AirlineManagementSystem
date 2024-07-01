@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 //const { PORT } = require("./config/serverConfig.js");
 const PORT = 3000;
 const bodyParser = require("body-parser");
@@ -7,7 +8,6 @@ const ApiRoutes = require("./routes/index");
 //const { City, Airport } = require("./models/index");
 const sequelize = require("sequelize");
 const startAndSetupServer = async () => {
-  const app = express();
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: "utf-8" }));
   app.use("/api", ApiRoutes);

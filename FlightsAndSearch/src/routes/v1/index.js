@@ -25,4 +25,6 @@ router.post(
   flightController.create
 ); //flights beacus of conventions try to always write a clean code
 router.get("/flights", flightController.getAll);
+router.get("/flights/:id", flightController.getFlight);
+router.patch("/flights/:id", flightController.update);
 module.exports = router;
